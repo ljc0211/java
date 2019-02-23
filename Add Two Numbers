@@ -1,0 +1,35 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode Result = new ListNode(0);
+        ListNode ResultHead = Result;
+        
+        int weight = 0;//进位。
+        
+        while(l1 != null || l2 != null) {
+            int x = (l1 != null)?l1.val:0;
+            int y = (l2 != null)?l2.val:0;
+            
+            int sum = x + y + weight;
+            weight = sum/10;
+            Result.next = new ListNode(sum%10);//记录该位上数值（借助构造函数开下一个结点并赋值，构建头结点）。
+            Result = Result.next;
+            
+            if(l1 != null)
+                l1 = l1.next;
+            if(l2 != null)
+               l2 = l2.next;
+        }
+        if (weight > 0) {
+            Result.next = new ListNode(weight);
+        }
+        return ResultHead.next;//一个链表于此随意截断。
+    }
+}
