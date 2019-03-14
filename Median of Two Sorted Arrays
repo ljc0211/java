@@ -1,0 +1,67 @@
+	  public double findMedianSortedArrays(int[] nums1, int[] nums2) 
+	  {
+		  	if ((nums1.length == 0) || (nums2.length == 0))
+		  	{
+		  		if ((nums1.length == 0) && (nums2.length != 0))
+		  		{
+					int nums2_id = nums2.length;
+					if (nums2_id % 2 == 1)
+						return((double)nums2[(nums2_id - 1)/2]);
+					else
+						return((((double)nums2[nums2_id/2] + (double)nums2[nums2_id/2 - 1])/2));
+		  		}
+		  		else
+		  		{
+					int nums1_id = nums1.length;
+					if (nums1_id % 2 == 1)
+						return((double)nums1[(nums1_id - 1)/2]);
+					else
+						return((((double)nums1[nums1_id/2] + (double)nums1[nums1_id/2 - 1])/2));
+
+		  		}
+		  	}
+		  	else
+		  	{
+				int[] nums3 = new int[nums1.length + nums2.length];
+				int nums1_id = nums1.length - 1;
+				
+				while (nums1_id > -1)//Remember to correct the value of nums1_id after the loop..
+				{
+					nums3[nums1_id] = nums1[nums1_id];
+					
+					nums1_id--;
+				}
+				
+				int nums3_id = nums3.length - 1;//New Array.
+				int nums2_id = nums2.length -1;
+				nums1_id = nums1.length -1;
+				
+				while (nums2_id > -1)
+				{
+					if (nums1_id < 0)
+						break;
+					if (nums2[nums2_id] > nums3[nums1_id])
+					{
+						nums3[nums3_id--] = nums2[nums2_id--];
+					}
+					else
+					{
+						nums3[nums3_id--] = nums3[nums1_id--];
+					}
+				}
+				
+				while (nums2_id > -1)//Copy the rest of nums2 to nums3.
+				{
+					nums3[nums3_id--] = nums2[nums2_id--];
+				}
+				nums3_id = nums3.length;
+				
+				
+				if (nums3_id % 2 == 1)
+					return((double)nums3[(nums3_id - 1)/2]);
+				else
+					return((((double)nums3[nums3_id/2] + (double)nums3[nums3_id/2 - 1])/2));
+
+		  	}
+
+	    }
